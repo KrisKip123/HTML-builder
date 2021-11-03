@@ -2,7 +2,6 @@ const fs = require('fs').promises;
 const f = require('fs');
 const path = require('path');
 
-let pathFolder = path.resolve(__dirname);
 let pathFolderAssets = path.resolve(__dirname, 'assets');
 let pathFolderNewFolder = path.resolve(__dirname, 'project-dist');
 let pathFolderStyles = path.resolve(__dirname, 'styles');
@@ -85,10 +84,10 @@ function mergeBundle(array, fileWrite) {
 
 async function getHtml() {
   let tHtml = await fs.readFile(pathTemplate, 'utf8');
-  let  files = await fs.readdir(pathComponents, {
-      withFileTypes: true,
+  let files = await fs.readdir(pathComponents, {
+    withFileTypes: true,
   });
-  files = files.map(e => path.basename(e.name, '.html'));
+  files = files.map((e) => path.basename(e.name, '.html'));
   let data = [];
   for (let i = 0; i < files.length; i++) {
     let PathFile = path.resolve(pathComponents, `${files[i]}.html`);
@@ -101,7 +100,6 @@ async function getHtml() {
   }
   fs.writeFile(path.resolve(pathFolderNewFolder, 'index.html'), newHTML);
 }
-
 
 async function start() {
   await getCloneAssets();
