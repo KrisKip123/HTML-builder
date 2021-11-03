@@ -12,7 +12,6 @@ let pathCreateAssets = path.resolve(pathFolderNewFolder, 'assets');
 
 async function createFolder(pathFolderCreate, newPath = '') {
   let newPathFolder = path.resolve(pathFolderCreate, newPath);
-  await fs.rmdir(newPathFolder, { recursive: true });
   await fs.mkdir(newPathFolder, { recursive: true });
 }
 
