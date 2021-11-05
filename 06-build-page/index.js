@@ -100,9 +100,26 @@ async function getHtml() {
   fs.writeFile(path.resolve(pathFolderNewFolder, 'index.html'), newHTML);
 }
 
+async function checkFolder(){
+  let FOLDER = await fs.readdir(path.resolve(__dirname),{
+    withFileTypes:true,
+  });
+  let t = 0;
+  FOLDER.forEach(e => {
+    if(e.name === 'project-dist'){
+      t++;
+    }
+  });
+  if(t === 1){
+    await fs.rm(path.resolve(__dirname, 'project-dist'), {recursive: true});
+  }
+}
+
 async function start() {
+  await checkFolder();
   await getCloneAssets();
   await getBundle();
   await getHtml();
 }
 start();
+
