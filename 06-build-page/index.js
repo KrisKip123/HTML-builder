@@ -61,8 +61,11 @@ async function getBundle() {
   let files = await fs.readdir(pathFolderStyles, {
     withFileTypes: true,
   });
+  let filesFilter = files.filter(
+    (e) => e.isFile() && e.name.slice(-3) === 'css'
+  );
   let fileWriteStream = f.createWriteStream(pathNewStyle);
-  mergeBundle(files, fileWriteStream);
+  mergeBundle(filesFilter, fileWriteStream);
 }
 
 function mergeBundle(array, fileWrite) {
