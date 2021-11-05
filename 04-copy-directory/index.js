@@ -6,6 +6,7 @@ let fullNamePath = path.resolve(__dirname, 'files');
 let copyFullNamePath = path.resolve(__dirname, 'files-copy');
 
 async function copyDir () {
+  await fs.rm(copyFullNamePath, { recursive: true });
   await fs.mkdir(copyFullNamePath, { recursive: true });
   let files = await fs.readdir(fullNamePath, {
     withFileTypes: true,
