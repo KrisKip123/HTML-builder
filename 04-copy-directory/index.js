@@ -5,8 +5,24 @@ const f = require('fs');
 let fullNamePath = path.resolve(__dirname, 'files');
 let copyFullNamePath = path.resolve(__dirname, 'files-copy');
 
+
+async function checkFolder(){
+  let FOLDER = await fs.readdir(path.resolve(__dirname),{
+    withFileTypes:true,
+  });
+  let t = 0;
+  FOLDER.forEach(e => {
+    if(e.name === 'files-copy'){
+      t++;
+    }
+  });
+  if(t === 1){
+    await fs.rm(path.resolve(__dirname, 'files-copy'), {recursive: true});
+  }
+}
+
 async function copyDir () {
-  await fs.rm(copyFullNamePath, { recursive: true });
+  await checkFolder();
   await fs.mkdir(copyFullNamePath, { recursive: true });
   let files = await fs.readdir(fullNamePath, {
     withFileTypes: true,
